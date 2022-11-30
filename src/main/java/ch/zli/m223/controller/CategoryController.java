@@ -40,7 +40,7 @@ public class CategoryController {
   }
 
   @DELETE
-  @Operation(summary = "Deletes an category.", description = "Deletes an category irrecoverarble.")
+  @Operation(summary = "Deletes a category.", description = "Deletes a category irrecoverarble.")
   @Path("/{id}")
   public void delete(@PathParam("id") long id) {
     categoryService.deleteCategory(id);
@@ -49,7 +49,7 @@ public class CategoryController {
   @PUT
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @Operation(summary = "Updates an category.", description = "Updates an category.")
+  @Operation(summary = "Updates a category.", description = "Updates a category.")
   @Path("/{id}")
   public Category update(Category category, @PathParam("id") long id) {
     category.setId(id);

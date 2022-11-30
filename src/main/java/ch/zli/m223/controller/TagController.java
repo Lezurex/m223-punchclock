@@ -16,8 +16,8 @@ import ch.zli.m223.model.Tag;
 import ch.zli.m223.service.TagService;
 
 @Path("/tags")
-@org.eclipse.microprofile.openapi.annotations.tags.Tag(name = "Categories",
-    description = "Handling of categories.")
+@org.eclipse.microprofile.openapi.annotations.tags.Tag(name = "Tags",
+    description = "Handling of tags.")
 public class TagController {
 
   @Inject
@@ -40,7 +40,7 @@ public class TagController {
   }
 
   @DELETE
-  @Operation(summary = "Deletes an tag.", description = "Deletes an tag irrecoverarble.")
+  @Operation(summary = "Deletes a tag.", description = "Deletes a tag irrecoverarble.")
   @Path("/{id}")
   public void delete(@PathParam("id") long id) {
     tagService.deleteTag(id);
@@ -49,7 +49,7 @@ public class TagController {
   @PUT
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  @Operation(summary = "Updates an tag.", description = "Updates an tag.")
+  @Operation(summary = "Updates a tag.", description = "Updates a tag.")
   @Path("/{id}")
   public Tag update(Tag tag, @PathParam("id") long id) {
     tag.setId(id);
