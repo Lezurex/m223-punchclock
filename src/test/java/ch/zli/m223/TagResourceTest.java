@@ -3,6 +3,7 @@ package ch.zli.m223;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.CoreMatchers.endsWith;
+import static org.hamcrest.CoreMatchers.is;
 import org.junit.jupiter.api.Test;
 import ch.zli.m223.controller.TagController;
 import ch.zli.m223.model.Tag;
@@ -23,7 +24,8 @@ public class TagResourceTest {
     public void testPostEndpoint() {
         var payload = new Tag("Test");
 
-        given().when().contentType(ContentType.JSON).body(payload).post().then().statusCode(200);
+        given().when().contentType(ContentType.JSON).body(payload).post().then().statusCode(200)
+                .body("title", is("Test"));
     }
 
     @Test
@@ -32,7 +34,8 @@ public class TagResourceTest {
 
         given().when().contentType(ContentType.JSON).body(payload).post();
         payload.setTitle("Test2");
-        given().when().contentType(ContentType.JSON).body(payload).put("/1").then().statusCode(200);
+        given().when().contentType(ContentType.JSON).body(payload).put("/1").then().statusCode(200)
+                .body("title", is("Test2"));
     }
 
     @Test
