@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Entry {
@@ -32,7 +34,10 @@ public class Entry {
   private Category category;
 
   @ManyToMany
-  @JoinTable(name = "entry_tags")
+  @JoinTable(name = "entry_tags", joinColumns = @JoinColumn(name = "entry_id"),
+      inverseJoinColumns = @JoinColumn(name = "tag_id"))
+  @JsonIgnoreProperties("entries")
+  @Fetch(FetchMode.JOIN)
   private Set<Tag> tags;
 
   public Entry(LocalDateTime checkIn, LocalDateTime checkOut) {
@@ -72,6 +77,14 @@ public class Entry {
 
   public void setCategory(Category category) {
     this.category = category;
+  }
+
+  public Set<Tag> getTags() {
+    return tags;
+  }
+
+  public void setTags(Set<Tag> tags) {
+    this.tags = tags;
   }
 
 }
