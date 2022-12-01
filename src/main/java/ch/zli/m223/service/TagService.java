@@ -10,7 +10,7 @@ import ch.zli.m223.model.Tag;
 @ApplicationScoped
 public class TagService {
   @Inject
-  private EntityManager entityManager;
+  EntityManager entityManager;
 
   @Transactional
   public Tag createTag(Tag tag) {

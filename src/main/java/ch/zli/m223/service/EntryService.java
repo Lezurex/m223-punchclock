@@ -12,7 +12,7 @@ import ch.zli.m223.model.Entry;
 @ApplicationScoped
 public class EntryService {
     @Inject
-    private EntityManager entityManager;
+    EntityManager entityManager;
 
     @Transactional
     public Entry createEntry(Entry entry) {

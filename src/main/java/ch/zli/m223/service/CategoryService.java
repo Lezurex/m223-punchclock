@@ -10,7 +10,7 @@ import ch.zli.m223.model.Category;
 @ApplicationScoped
 public class CategoryService {
   @Inject
-  private EntityManager entityManager;
+  EntityManager entityManager;
 
   @Transactional
   public Category createCategory(Category category) {

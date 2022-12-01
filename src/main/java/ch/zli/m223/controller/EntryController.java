@@ -1,7 +1,8 @@
 package ch.zli.m223.controller;
 
 import java.util.List;
-
+import javax.annotation.security.RolesAllowed;
+import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -12,7 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-
+import org.eclipse.microprofile.jwt.JsonWebToken;
 import org.eclipse.microprofile.openapi.annotations.Operation;
 import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
@@ -25,9 +26,13 @@ public class EntryController {
 
     @Inject
     EntryService entryService;
+    @Inject
+    @RequestScoped
+    JsonWebToken jwt;
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"user"})
     @Operation(summary = "Index all Entries.", description = "Returns a list of all entries.")
     public List<Entry> index() {
         return entryService.findAll();
@@ -36,6 +41,7 @@ public class EntryController {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"user"})
     @Operation(summary = "Creates a new entry.",
             description = "Creates a new entry and returns the newly added entry.")
     public Entry create(Entry entry) {
@@ -43,6 +49,7 @@ public class EntryController {
     }
 
     @DELETE
+    @RolesAllowed({"user"})
     @Operation(summary = "Deletes an entry.", description = "Deletes an entry irrecoverarble.")
     @Path("/{id}")
     public void delete(@PathParam("id") long id) {
@@ -52,6 +59,7 @@ public class EntryController {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed({"user"})
     @Operation(summary = "Updates an entry.", description = "Updates an entry.")
     @Path("/{id}")
     public Entry update(Entry entry, @PathParam("id") long id) {

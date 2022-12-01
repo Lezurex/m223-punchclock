@@ -33,6 +33,10 @@ public class Entry {
   @Fetch(FetchMode.JOIN)
   private Category category;
 
+  @ManyToOne()
+  @Fetch(FetchMode.JOIN)
+  private ApplicationUser applicationUser;
+
   @ManyToMany
   @JoinTable(name = "entry_tags", joinColumns = @JoinColumn(name = "entry_id"),
       inverseJoinColumns = @JoinColumn(name = "tag_id"))
@@ -85,6 +89,14 @@ public class Entry {
 
   public void setTags(Set<Tag> tags) {
     this.tags = tags;
+  }
+
+  public ApplicationUser getApplicationUser() {
+    return applicationUser;
+  }
+
+  public void setApplicationUser(ApplicationUser applicationUser) {
+    this.applicationUser = applicationUser;
   }
 
 }
