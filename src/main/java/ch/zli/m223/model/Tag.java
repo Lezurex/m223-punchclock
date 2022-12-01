@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotBlank;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
@@ -21,6 +22,7 @@ public class Tag {
   private long id;
 
   @Column(nullable = false)
+  @NotBlank(message = "Title may not be blank.")
   private String title;
 
   @ManyToMany(mappedBy = "tags")
