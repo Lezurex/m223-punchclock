@@ -1,11 +1,18 @@
 package ch.zli.m223.model;
 
-import javax.persistence.*;
-
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
-
 import java.time.LocalDateTime;
 import java.util.Set;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 public class Entry {
@@ -20,8 +27,8 @@ public class Entry {
   @Column(nullable = false)
   private LocalDateTime checkOut;
 
-  @ManyToOne
-  @JoinColumn(name = "category_id")
+  @ManyToOne()
+  @Fetch(FetchMode.JOIN)
   private Category category;
 
   @ManyToMany

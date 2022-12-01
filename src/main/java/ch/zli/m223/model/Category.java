@@ -8,6 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Category {
@@ -20,7 +23,9 @@ public class Category {
   @Column(nullable = false)
   private String title;
 
-  @OneToMany
+  @OneToMany(mappedBy = "category")
+  @JsonIgnoreProperties("category")
+  @Fetch(FetchMode.JOIN)
   private Set<Entry> entries;
 
   public Category(String title) {
