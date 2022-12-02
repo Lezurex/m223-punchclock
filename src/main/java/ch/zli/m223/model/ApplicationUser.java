@@ -7,11 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.validator.constraints.Length;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ApplicationUser {
@@ -21,20 +23,22 @@ public class ApplicationUser {
   @Schema(readOnly = true)
   private long id;
 
-  @Column(nullable = false)
-  @NotBlank(message = "Title may not be blank.")
-  private String username;
+  @Column(nullable = false, unique = true)
+  @NotBlank(message = "Email may not be blank.")
+  @Email
+  private String email;
 
   @Column(nullable = false)
+  @Length(min = 8)
   private String password;
 
-  @OneToMany(mappedBy = "category")
-  @JsonIgnoreProperties("category")
+  @OneToMany(mappedBy = "applicationUser")
+  @JsonIgnore
   @Fetch(FetchMode.JOIN)
   private Set<Entry> entries;
 
-  public ApplicationUser(String title, String password) {
-    this.username = title;
+  public ApplicationUser(String email, String password) {
+    this.email = email;
     this.password = password;
   }
 
@@ -49,11 +53,11 @@ public class ApplicationUser {
   }
 
   public String getUsername() {
-    return username;
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setEmail(String username) {
+    this.email = username;
   }
 
   public String getPassword() {
@@ -62,6 +66,18 @@ public class ApplicationUser {
 
   public void setPassword(String password) {
     this.password = password;
+  }
+
+  public String getEmail() {
+    return email;
+  }
+
+  public Set<Entry> getEntries() {
+    return entries;
+  }
+
+  public void setEntries(Set<Entry> entries) {
+    this.entries = entries;
   }
 
 }

@@ -1,6 +1,7 @@
 package ch.zli.m223.controller;
 
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -16,6 +17,7 @@ import ch.zli.m223.model.Tag;
 import ch.zli.m223.service.TagService;
 
 @Path("/tags")
+@RolesAllowed({"user", "admin"})
 @org.eclipse.microprofile.openapi.annotations.tags.Tag(name = "Tags",
     description = "Handling of tags.")
 public class TagController {

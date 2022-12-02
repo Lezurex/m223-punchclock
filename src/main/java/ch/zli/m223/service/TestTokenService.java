@@ -13,7 +13,7 @@ import io.smallrye.jwt.build.Jwt;
 @ApplicationScoped
 public class TestTokenService {
   public String generateToken() {
-    String token = Jwt.issuer("https://example.com/issuer").upn("jdoe@quarkus.io")
+    String token = Jwt.issuer("https://example.com/issuer").upn("joerg@example.com")
         .groups(new HashSet<>(Arrays.asList("user", "admin")))
         .claim(Claims.birthdate.name(), "2001-07-13").sign();
     return token;

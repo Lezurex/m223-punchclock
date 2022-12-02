@@ -11,12 +11,17 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@NamedQueries({@NamedQuery(name = "ApplicationUser.findByEmail",
+    query = "SELECT u FROM ApplicationUser u WHERE u.email = :email")})
 public class Entry {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,10 +36,12 @@ public class Entry {
 
   @ManyToOne()
   @Fetch(FetchMode.JOIN)
+  @JsonIgnore
   private Category category;
 
-  @ManyToOne()
+  @ManyToOne(optional = false)
   @Fetch(FetchMode.JOIN)
+  @JsonIgnore
   private ApplicationUser applicationUser;
 
   @ManyToMany

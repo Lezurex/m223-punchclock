@@ -11,7 +11,7 @@ import javax.validation.constraints.NotBlank;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Tag {
@@ -26,7 +26,7 @@ public class Tag {
   private String title;
 
   @ManyToMany(mappedBy = "tags")
-  @JsonIgnoreProperties("tags")
+  @JsonIgnore
   @Fetch(FetchMode.JOIN)
   private Set<Entry> entries;
 

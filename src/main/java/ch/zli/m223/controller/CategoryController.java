@@ -1,6 +1,7 @@
 package ch.zli.m223.controller;
 
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -17,6 +18,7 @@ import ch.zli.m223.model.Category;
 import ch.zli.m223.service.CategoryService;
 
 @Path("/categories")
+@RolesAllowed({"user", "admin"})
 @Tag(name = "Categories", description = "Handling of categories.")
 public class CategoryController {
 
