@@ -1,3 +1,7 @@
+Dieses Projekt ist ein Fork von <https://github.com/zlict/m223-punchclock>.
+
+---
+
 # Übungsprojekt: Punch Clock
 
 Punch Clock ist ein Zeiterfassungssystem, welches mit Quarkus entwickelt wird.
