@@ -31,7 +31,7 @@ services:
       - ..:/workspace:cached
 
     # Overrides default command so things don't shut down after the process ends.
-    command: sleep infinity
+    command: /bin/su -c 'cd /workspace/src/main/resources && openssl genrsa -out rsaPrivateKey.pem 2048 && openssl rsa -pubout -in rsaPrivateKey.pem -out publicKey.pem && openssl pkcs8 -topk8 -nocrypt -inform pem -in rsaPrivateKey.pem -outform pem -out privateKey.pem && rm rsaPrivateKey.pem; sleep infinity' vscode
 
     # Runs app on the same network as the database container, allows "forwardPorts" in devcontainer.json function.
     network_mode: service:db
